@@ -1,0 +1,79 @@
+﻿@model MDW.Models.UserListModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><b>Users</b></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <td class="text-center"><span class="glyphicon glyphicon-flag"></span></td>
+                    <td class="text-center"><span class="glyphicon glyphicon-user"></span></td>
+                    <td><b><small>First Name</small></b></td>
+                    <td><b><small>Last Name</small></b></td>
+                    <td><b><small>Username</small></b></td>
+                    <td><b><small>Role</small></b></td>
+                    <td><b><small>Email</small></b></td>
+                    <td class="text-center"><span class="glyphicon glyphicon-trash"></span></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        @if (user.Enabled)
+                        {
+                            <td width="10px" class="text-center"><span class="glyphicon glyphicon-eye-open"></span></td>
+                        }
+                        else
+                        {
+                            <td width="10px" class="text-center"><span class="glyphicon glyphicon-eye-close"></span></td>
+                        }
+                        <td width="10px"><img src="@user.Gravatar?s=20" alt="Gravatar" align="left" /></td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Username</td>
+                        <td>@user.Role</td>
+                        <td>@user.Email</td>
+                        <td width="10px" class="text-center">
+                            @using (Html.BeginForm("DeleteUser", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="username" name="username" value="@user.Username" />
+                                <button type="submit" class="btn btn-xs btn-default">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+                @using (Html.BeginForm("CreateUser", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td width="10px">&nbsp;</td>
+                        <td width="10px">&nbsp;</td>
+                        <td><input type="text" id="firstname" name="firstname" class="form-control" /></td>
+                        <td><input type="text" id="lastname" name="lastname" class="form-control" /></td>
+                        <td><input type="text" id="username" name="username" class="form-control" /></td>
+                        <td>
+                            <select id="role" name="role" class="form-control">
+                                @foreach (var role in Model.Roles)
+                                {
+                                    <option>@role.Name</option>
+                                }
+                            </select>
+                        </td>
+                        <td><input type="text" id="email" name="email" class="form-control" /></td>
+                        <td width="10px" class="text-center" style="vertical-align:middle">
+                            <button type="submit" class="btn btn-xs btn-default">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

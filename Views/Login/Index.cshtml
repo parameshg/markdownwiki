@@ -1,0 +1,68 @@
+﻿@model MDW.Models.Login
+
+<br />
+<br />
+<br />
+<table style="width: 100%;" border="0" class="fuelux">
+    <tr>
+        <td style="width: 35%;">&nbsp;</td>
+        <td style="width: 30%; align-content: center; align-items: center; align-self: center; text-align: center;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div><b>Login</b></div>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Authenticate", "Login", FormMethod.Post))
+                    {
+                        <table style="width: 100%" border="0">
+                            <tr>
+                                <td style="width: 100%; padding: 5px">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                        </span>
+                                        @Html.TextBoxFor(i => i.Username, new { @class = "form-control", placeholder = "Username" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 100%; padding: 5px">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
+                                        </span>
+                                        @Html.PasswordFor(i => i.Password, new { @class = "form-control", placeholder = "Password" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 100%; padding: 5px;">
+                                    <input type="hidden" id="remember" name="remember" />
+                                    <label id="remember-label" class="checkbox-custom" data-initialize="checkbox">
+                                        <input type="checkbox" />
+                                        <span class="checkbox-label">&nbsp;Remember me on this computer</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 100px; padding: 5px;">
+                                    <button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-user"></span>&nbsp;Login</button>
+                                    <a class="btn btn-sm btn-default" href="/login"><span class="glyphicon glyphicon-remove"></span>&nbsp;Cancel</a>
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                </div>
+            </div>
+        </td>
+        <td style="width: 35%;">&nbsp;</td>
+    </tr>
+</table>
+<br />
+<br />
+<br />
+<script>
+    $("#remember-label").on("change", function () {
+        $("#remember").val($(this).hasClass('checked'));
+    });
+</script>

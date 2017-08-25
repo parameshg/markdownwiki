@@ -1,0 +1,26 @@
+﻿<div class="panel panel-danger">
+    <div class="panel-heading">An error has occurred: @ViewData["ErrorMessage"]</div>
+    <div class="panel-body">
+        Uh oh! Something went terribly wrong. We strive hard not to show up this page. Unfortunately, bad things do happen and we request your support in fixing them. Please write to us about what you were trying to do when you hit this page. This will help us improve this product and serve your better. Thanks for your support.
+        <br />
+        <br />
+        <div class="form-group">
+            <label for="comment">Write to us:</label>
+            <textarea class="form-control" rows="5" id="body" name="body"></textarea>
+        </div>
+        <a href="#" id="sendMail" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Send Mail</a>
+        <a class="btn btn-default" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span> Home</a>
+        <a class="btn btn-default" href="@Url.Action("Index", "Logout")"><span class="glyphicon glyphicon-off"></span> Logout</a>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Technical Details</div>
+    <div class="panel-body">
+        <div id="errorMessage">
+            @ViewData["ErrorMessage"]
+        </div>
+        <div id="stackTrace">
+            @ViewData["ErrorStackTrace"]
+        </div>
+    </div>
+</div>

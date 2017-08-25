@@ -1,0 +1,151 @@
+﻿@model MDW.Models.UserModel
+
+@using (Html.BeginForm("Update", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <table width="100%">
+        <tr>
+            <td width="50%" style="vertical-align:top">
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input type="text" id="firstname" name="firstname" class="form-control" placeholder="First Name" value="@Model.FirstName" />
+                            </div>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input type="text" id="lastname" name="lastname" class="form-control" placeholder="Last Name" value="@Model.LastName" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td colspan="3">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-tag"></span>
+                                </span>
+                                <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="@Model.Username" readonly />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td colspan="3">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </span>
+                                <input type="text" id="email" name="email" class="form-control" placeholder="Email" value="@Model.Email" readonly />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td colspan="3">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </span>
+                                <input type="text" id="role" name="role" class="form-control" placeholder="Role" value="@Model.Role" readonly />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td colspan="3">&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="input-group" style="width:100%">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-sunglasses"></span>
+                                    </span>
+                                    <select class="form-control" id="theme" name="theme">
+                                        <option value="default">Default</option>
+                                        <option value="blue">Blue</option>
+                                        <option value="yellow">Yellow</option>
+                                        <option value="dark">Dark</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>&nbsp;&nbsp;&nbsp;</td>
+            <td width="50%" style="vertical-align:top; height:200px">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <img src="@Model.Gravatar?s=218" alt="Gravatar" align="left" />
+                        &nbsp;
+                        <p class="text-right" style="vertical-align:top;">
+                            The profile picture is a <a href="https://www.gravatar.com" target="_blank">Gravatar</a> (Globally Recognized Avatar). You upload it and create your profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image will automatically follow you there. On Gravatar, users can register an account based on their email address, and upload a digital avatar to be associated with the account.
+                        </p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <br />
+}
+<hr />
+@using (Html.BeginForm("ChangePassword", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="username" name="username" value="@Model.Username" />
+    <table width="100%">
+        <tr>
+            <td width="50%" style="vertical-align:top">
+                <table width="100%">
+                    <tr>
+                        <td colspan="3">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"></span>
+                                </span>
+                                <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Old Password" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td colspan="3">&nbsp;</td></tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"></span>
+                                </span>
+                                <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="New Password" />
+                            </div>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"></span>
+                                </span>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </td>
+            <td>&nbsp;&nbsp;&nbsp;</td>
+            <td width="50%" style="vertical-align:top; height:200px">
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+}
+<br />
+<b>@Html.ValidationSummary(true, "", new { @class = "text-danger" })</b>

@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Wiki</title>
+    <!-- Styles -->
+    @Styles.Render("~/styles")
+    @if (Context.Request.IsAuthenticated)
+    {
+        @Styles.Render("~/styles/theme-" + Context.Request.Cookies["Theme"].Value)
+    }
+    <!-- Scripts -->
+    @Scripts.Render("~/scripts")
+</head>
+<body style="background-color: #2b3e50;">
+    <div class="container body-content">
+        <br />
+        <div class="navbar navbar-inverse navbar-fixed-top" data-ng-controller="MenuController">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">Wiki</span>
+                </div>
+                <div class="navbar-collapse collapse">
+                    @if (Context.Request.IsAuthenticated)
+                    {
+                        <ul class="nav navbar-nav">
+                            <li><a href="@Url.Action("Index", "Pages")"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                            @if ((string)Session["Role"] == "administrator")
+                            {
+                                <li>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                        <span class="glyphicon glyphicon-th-large"></span> Administration <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Users" })"><span class="glyphicon glyphicon-cog"></span> Users</a></li>
+                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Roles" })"><span class="glyphicon glyphicon-cog"></span> User Roles</a></li>
+                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Pages" })"><span class="glyphicon glyphicon-cog"></span> Pages</a></li>
+                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Groups" })"><span class="glyphicon glyphicon-cog"></span> Page Groups</a></li>
+                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Authorization" })"><span class="glyphicon glyphicon-cog"></span> Authorization</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="pull-right"><a href="@Url.Action("Index", "Logout")"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+                            <li class="pull-right">
+                                <a href="@Url.Action("Index", "Profile")">
+                                    <img src="@Context.Request.Cookies["Gravatar"].Value?s=23" alt="Gravatar" align="left" /> &nbsp; @Context.Request.Cookies["name"].Value
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+        <div>@RenderBody()</div>
+        <div class="navbar navbar-inverse navbar-fixed-bottom">
+            <div class="container">
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a>@AssemblyInfo.Copyright</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="pull-right" data-toggle="modal" data-target="#version"><a href="#">Version @AssemblyInfo.Version</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Version Modal -->
+        <div class="modal" id="version" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    @*<div class="modal-header">
+                            <h4 class="modal-title">Version</h4>
+                        </div>*@
+                    <div class="modal-body">
+                        <table width="100%" class="table table-bordered table-striped">
+                            <tr>
+                                <td style="text-align:left"><b>Version</b></td>
+                                <td style="text-align:left">@AssemblyInfo.Version</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left"><b>Build</b></td>
+                                <td style="text-align:left">@AssemblyInfo.Build</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left"><b>Hash</b></td>
+                                <td style="text-align:left"><small>@AssemblyInfo.Hash</small></td>
+                            </tr>
+                        </table>
+                    </div>
+                    @*<div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    @if (Context.Request.IsAuthenticated)
+    {
+        <input type="hidden" id="name" name="name" value="@Request.Cookies["name"].Value" />
+        <input type="hidden" id="firstName" name="firstName" value="@Request.Cookies["firstName"].Value" />
+        <input type="hidden" id="lastName" name="lastName" value="@Request.Cookies["lastName"].Value" />
+        <input type="hidden" id="email" name="email" value="@Request.Cookies["email"].Value" />
+        <input type="hidden" id="username" name="username" value="@Request.Cookies["username"].Value" />
+    }
+    <input type="hidden" id="api" name="api" value="@ViewBag.Api" />
+    <script>
+        var ALERT_DELAY = 2000;
+        var LOADING_DELAY = 100;
+        var api = $("#api").val();
+        $(".body-content").css("min-height", $(window).height() - 100);
+        $(window).resize(function () {
+            $(".body-content").css("min-height", $(window).height() - 100);
+        });
+    </script>
+</body>
+</html>

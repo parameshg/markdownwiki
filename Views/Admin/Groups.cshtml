@@ -1,0 +1,50 @@
+﻿@model MDW.Models.GroupListModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><b>Page Groups</b></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <td><b><small>Name</small></b></td>
+                    <td class="text-center"><span class="glyphicon glyphicon-trash"></span></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var group in Model.Groups)
+                {
+                    <tr>
+                        <td>@group.Name</td>
+                        <td width="10px" class="text-center">
+                            @if (!group.Builtin)
+                            {
+                                using (Html.BeginForm("DeleteGroup", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" id="name" name="name" value="@group.Name" />
+                                    <button type="submit" class="btn btn-xs btn-default">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+                @using (Html.BeginForm("CreateGroup", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td><input type="text" id="name" name="name" class="form-control" /></td>
+                        <td width="10px" class="text-center" style="vertical-align:middle">
+                            <button type="submit" class="btn btn-xs btn-default">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

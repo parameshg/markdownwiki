@@ -1,0 +1,73 @@
+﻿@model MDW.Models.PolicyListModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><b>Authorization</b></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <td><b><small>Role</small></b></td>
+                    <td><b><small>Group</small></b></td>
+                    <td><b><small>Effect</small></b></td>
+                    <td class="text-center"><span class="glyphicon glyphicon-trash"></span></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var policy in Model.Policies)
+                {
+                    <tr>
+                        <td>@policy.Role</td>
+                        <td>@policy.Group</td>
+                        <td>@policy.Effect</td>
+                        <td width="10px" class="text-center">
+                            @using (Html.BeginForm("DeletePolicy", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="role" name="role" value="@policy.Role" />
+                                <input type="hidden" id="group" name="group" value="@policy.Group" />
+                                <button type="submit" class="btn btn-xs btn-default">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+                @using (Html.BeginForm("CreatePolicy", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td>
+                            <select id="role" name="role" class="form-control">
+                                @foreach (var role in Model.Roles)
+                                {
+                                    <option>@role.Name</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <select id="group" name="group" class="form-control">
+                                @foreach (var group in Model.Groups)
+                                {
+                                    <option>@group.Name</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <select id="effect" name="effect" class="form-control">
+                                <option value="true">ALLOW</option>
+                                <option value="false">DENY</option>
+                            </select>
+                        </td>
+                        <td width="10px" class="text-center" style="vertical-align:middle">
+                            <button type="submit" class="btn btn-xs btn-default">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

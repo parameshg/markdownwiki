@@ -1,0 +1,76 @@
+﻿.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-left: 1px solid #2e6da4;
+    border-right: 1px solid #2e6da4;
+    border-radius: 0px;
+    background-color:  #f5f8fa;
+}
+
+.input-group-addon{
+    background-color: #2b3e50;
+    border: 1px solid #2e6da4;
+    color: #f5f8fa;
+}
+
+.panel-default {
+    border-color: #2e6da4;
+}
+.panel-default > .panel-heading {
+    color: #f5f8fa;
+    background-color: #2b3e50;
+    border-color: #2e6da4;
+    background-image: -webkit-linear-gradient(top,#2b3e50 0,#2b3e50 100%);
+    background-image: -o-linear-gradient(top,#2b3e50 0,#2b3e50 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2b3e50),to(#2b3e50));
+    background-image: linear-gradient(to bottom,#2b3e50 0,#2b3e50 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2b3e50', endColorstr='#ff2e6da4', GradientType=0);
+    background-repeat: repeat-x;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background-color: #2b3e50;
+    border: 1px solid #2e6da4;
+    border-bottom-color: transparent;
+    color: #f5f8fa;
+}
+
+.form-control {
+    border: 1px solid #2b3e50;
+}
+
+.table-bordered {
+    border: 1px solid #2e6da4;
+}
+
+.btn-default, .btn-primary {
+    border-color: #2e6da4;
+}
+
+.btn-default:hover, .btn-primary:hover {
+    border-color: #2e6da4;
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #2e6da4;
+}
+
+select:active, select:hover {
+  outline-color: #2e6da4;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: linen;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #2e6da4;
+}
+
+.navbar-inverse .navbar-brand:hover {
+    color: #2b3e50;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: #2b3e50;
+}

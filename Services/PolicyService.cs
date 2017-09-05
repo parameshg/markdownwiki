@@ -1,10 +1,9 @@
 ﻿using MDW.Entity;
 using MDW.Repository.Interfaces;
 using MDW.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MDW.Services
 {
@@ -44,7 +43,7 @@ namespace MDW.Services
 
                 var flag = true;
 
-                foreach(var policy in policies.Where(i => i.Role.Equals(role) && i.Group.Equals(group)).ToList())
+                foreach (var policy in policies.Where(i => i.Role.Equals(role) && i.Group.Equals(group)).ToList())
                     flag = flag && policy.Effect;
 
                 result = flag;

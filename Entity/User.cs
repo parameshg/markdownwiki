@@ -1,5 +1,4 @@
-﻿
-namespace MDW.Entity
+﻿namespace MDW.Entity
 {
     public class User
     {

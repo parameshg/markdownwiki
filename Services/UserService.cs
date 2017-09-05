@@ -1,11 +1,9 @@
 ﻿using MDW.Entity;
 using MDW.Repository.Interfaces;
 using MDW.Services.Interfaces;
-using System;
+using MDW.Tools;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
-using MDW.Tools;
 
 namespace MDW.Services
 {

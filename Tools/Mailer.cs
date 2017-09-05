@@ -1,5 +1,4 @@
-﻿
-namespace MDW.Tools
+﻿namespace MDW.Tools
 {
     public class Mailer
     {

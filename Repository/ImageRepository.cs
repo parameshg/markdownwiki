@@ -2,7 +2,6 @@
 using MDW.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace MDW.Repository
 {
@@ -30,7 +29,7 @@ namespace MDW.Repository
 
             await Task.Run(() =>
             {
-                foreach(var i in Database.GetCollection<Image>().FindAll())
+                foreach (var i in Database.GetCollection<Image>().FindAll())
                 {
                     result.Add(new Image()
                     {
@@ -59,7 +58,7 @@ namespace MDW.Repository
         {
             var result = string.Empty;
 
-            await Task.Run(() => 
+            await Task.Run(() =>
             {
                 Database.GetCollection<Image>().Insert(image.Name, image);
 

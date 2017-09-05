@@ -2,7 +2,6 @@
 using MDW.Services;
 using MDW.Services.Interfaces;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Threading.Tasks;
 
 namespace MDW.Security

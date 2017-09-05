@@ -1,7 +1,5 @@
-﻿using MDW.Entity;
-using MDW.Filters;
+﻿using MDW.Filters;
 using MDW.Models;
-using MDW.Services;
 using MDW.Services.Interfaces;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -39,7 +37,7 @@ namespace MDW.Controllers
             model.Url = Request.Url.PathAndQuery.Replace("?", string.Empty);
 
             model.Authorized = await Policies.EvaluatePage((string)Session["Username"], Request.Url.PathAndQuery.Replace("?", string.Empty));
-                
+
             if (model.Authorized)
             {
                 foreach (var i in await Groups.GetGroups())
@@ -98,7 +96,7 @@ namespace MDW.Controllers
             await Pages.UpdatePage(model.Url, model.Name, model.Group, model.Body);
 
             result = Redirect(Request.UrlReferrer.ToString());
-            
+
             return result;
         }
 

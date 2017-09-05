@@ -1,9 +1,8 @@
-﻿using MDW.Models;
+﻿using MDW.Filters;
+using MDW.Models;
 using MDW.Services.Interfaces;
-using System.Web.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
-using MDW.Filters;
+using System.Web.Mvc;
 
 namespace MDW.Controllers
 {
@@ -45,7 +44,7 @@ namespace MDW.Controllers
             {
                 var model = new UserListModel();
 
-                (await Users.GetUsers()).ForEach(i => 
+                (await Users.GetUsers()).ForEach(i =>
                 {
                     model.Users.Add(new UserModel()
                     {

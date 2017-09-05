@@ -2,7 +2,6 @@
 using MDW.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace MDW.Repository
 {
@@ -30,7 +29,7 @@ namespace MDW.Repository
 
             await Task.Run(() =>
             {
-                foreach(var i in Database.GetCollection<Page>().FindAll())
+                foreach (var i in Database.GetCollection<Page>().FindAll())
                 {
                     result.Add(new Page()
                     {
@@ -60,7 +59,7 @@ namespace MDW.Repository
         {
             var result = string.Empty;
 
-            await Task.Run(() => 
+            await Task.Run(() =>
             {
                 Database.GetCollection<Page>().Insert(page.Url, page);
                 result = page.Url;

@@ -1,0 +1,59 @@
+﻿@model MDW.Models.MediaListModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><b>Images</b></h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <td><b><small>Name</small></b></td>
+                    <td><b><small>Group</small></b></td>
+                    <td class="text-center"><span class="glyphicon glyphicon-trash"></span></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var image in Model.Images)
+                {
+                    <tr>
+                        
+                        <td><a href="@Request.Url.Scheme://@Request.Url.DnsSafeHost/media/images?id=@image.Name" target="_blank">@image.Name</a></td>
+                        <td>@image.Group</td>
+                        <td width="10px" class="text-center">
+                            @using (Html.BeginForm("DeleteImage", "Media", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" id="name" name="name" value="@image.Name" />
+                                <button type="submit" class="btn btn-xs btn-default">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+                @using (Html.BeginForm("CreateImage", "Media", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <tr>
+                        <td><input type="file" id="file" name="file" class="form-control" /></td>
+                        <td>
+                            <select id="group" name="group" class="form-control">
+                                @foreach (var group in Model.Groups)
+                                {
+                                    <option>@group.Name</option>
+                                }
+                            </select>
+
+                        </td>
+                        <td width="10px" class="text-center" style="vertical-align:middle">
+                            <button type="submit" class="btn btn-xs btn-default">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

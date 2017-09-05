@@ -14,7 +14,7 @@ namespace MDW.Services.Interfaces
 
         Task<string> CreatePage(string name, string group);
 
-        Task<bool> UpdatePage(Page page);
+        Task<bool> UpdatePage(string url, string name, string group, string body);
 
         Task<bool> DeletePageByUrl(string url);
     }

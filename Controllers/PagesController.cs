@@ -36,9 +36,9 @@ namespace MDW.Controllers
 
             var model = new PageModel();
 
-            model.Url = Request.Url.PathAndQuery;
+            model.Url = Request.Url.PathAndQuery.Replace("?", string.Empty);
 
-            model.Authorized = await Policies.Evaluate((string)Session["Username"], Request.Url.PathAndQuery);
+            model.Authorized = await Policies.EvaluatePage((string)Session["Username"], Request.Url.PathAndQuery.Replace("?", string.Empty));
                 
             if (model.Authorized)
             {
@@ -84,7 +84,7 @@ namespace MDW.Controllers
 
             url = url.Replace("/", string.Empty);
 
-            result = Redirect($"{Request.Url.Scheme}://{Request.Url.Host}:{Request.Url.Port}{url}");
+            result = Redirect($"{Request.Url.Scheme}://{Request.Url.Host}:{Request.Url.Port}?{url}");
 
             return result;
         }
@@ -95,13 +95,7 @@ namespace MDW.Controllers
         {
             ActionResult result = null;
 
-            await Pages.UpdatePage(new Page()
-            {
-                Url = model.Url,
-                Name = model.Name,
-                Group = model.Group,
-                Body = model.Body
-            });
+            await Pages.UpdatePage(model.Url, model.Name, model.Group, model.Body);
 
             result = Redirect(Request.UrlReferrer.ToString());
             

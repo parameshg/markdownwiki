@@ -17,8 +17,8 @@ namespace MDW
             Bootstrap.RegisterRoutes(RouteTable.Routes);
             Bootstrap.RegisterBundles(BundleTable.Bundles);
             Bootstrap.RegisterDependencies();
-            Bootstrap.RegisterDefaults();
-
+            Bootstrap.RegisterDefaults(this);
+            
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }

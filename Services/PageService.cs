@@ -70,11 +70,19 @@ namespace MDW.Services
             return result;
         }
 
-        public async Task<bool> UpdatePage(Page page)
+        public async Task<bool> UpdatePage(string url, string name, string group, string body)
         {
             var result = false;
 
-            page.Url = page.Url.Replace("?", string.Empty);
+            url = url.Replace("?", string.Empty);
+
+            var page = new Page()
+            {
+                Url = url,
+                Name = name,
+                Group = group,
+                Body = body
+            };
 
             result = await Repository.UpdatePage(page);
 

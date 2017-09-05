@@ -31,21 +31,19 @@
                     {
                         <ul class="nav navbar-nav">
                             <li><a href="@Url.Action("Index", "Pages")"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                            @if ((string)Session["Role"] == "administrator")
-                            {
-                                <li>
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                                        <span class="glyphicon glyphicon-th-large"></span> Administration <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Users" })"><span class="glyphicon glyphicon-cog"></span> Users</a></li>
-                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Roles" })"><span class="glyphicon glyphicon-cog"></span> User Roles</a></li>
-                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Pages" })"><span class="glyphicon glyphicon-cog"></span> Pages</a></li>
-                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Groups" })"><span class="glyphicon glyphicon-cog"></span> Page Groups</a></li>
-                                        <li><a href="@Url.Action("Configure", "Admin", new { id = "Authorization" })"><span class="glyphicon glyphicon-cog"></span> Authorization</a></li>
-                                    </ul>
-                                </li>
-                            }
+                            <li><a href="@Url.Action("Index", "Media")"><span class="glyphicon glyphicon-film"></span> Media</a></li>
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                    <span class="glyphicon glyphicon-th-large"></span> Administration <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action("Configure", "Admin", new { id = "Users" })"><span class="glyphicon glyphicon-cog"></span> Users</a></li>
+                                    <li><a href="@Url.Action("Configure", "Admin", new { id = "Roles" })"><span class="glyphicon glyphicon-cog"></span> User Roles</a></li>
+                                    <li><a href="@Url.Action("Configure", "Admin", new { id = "Pages" })"><span class="glyphicon glyphicon-cog"></span> Pages</a></li>
+                                    <li><a href="@Url.Action("Configure", "Admin", new { id = "Groups" })"><span class="glyphicon glyphicon-cog"></span> Page Groups</a></li>
+                                    <li><a href="@Url.Action("Configure", "Admin", new { id = "Authorization" })"><span class="glyphicon glyphicon-cog"></span> Authorization</a></li>
+                                </ul>
+                            </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="pull-right"><a href="@Url.Action("Index", "Logout")"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
@@ -77,8 +75,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     @*<div class="modal-header">
-                            <h4 class="modal-title">Version</h4>
-                        </div>*@
+                        <h4 class="modal-title">Version</h4>
+                    </div>*@
                     <div class="modal-body">
                         <table width="100%" class="table table-bordered table-striped">
                             <tr>
@@ -96,8 +94,8 @@
                         </table>
                     </div>
                     @*<div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>*@
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>*@
                 </div>
             </div>
         </div>

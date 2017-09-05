@@ -8,6 +8,7 @@ using SimpleInjector.Integration.Web.Mvc;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -24,7 +25,7 @@ namespace MDW
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Pages", action = "Index", id = UrlParameter.Optional }
             );
@@ -72,6 +73,7 @@ namespace MDW
             container.Register<IUserRepository, UserRepository>();
             container.Register<IGroupRepository, GroupRepository>();
             container.Register<IPageRepository, PageRepository>();
+            container.Register<IImageRepository, ImageRepository>();
             container.Register<IPolicyRepository, PolicyRepository>();
 
             container.Register<IRoleService, RoleService>();
@@ -79,6 +81,7 @@ namespace MDW
             container.Register<IMarkdownService, MarkdownService>();
             container.Register<IGroupService, GroupService>();
             container.Register<IPageService, PageService>();
+            container.Register<IImageService, ImageService>();
             container.Register<IPolicyService, PolicyService>();
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
@@ -89,7 +92,7 @@ namespace MDW
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
 
-        public static void RegisterDefaults()
+        public static void RegisterDefaults(HttpApplication context)
         {
             if (!File.Exists(Path.Combine(ConfigurationManager.AppSettings["mdw.db.path"], @"mdw.db")))
             {
@@ -99,30 +102,38 @@ namespace MDW
                 {
                     roles.CreateRole("administrator", true).GetAwaiter().GetResult();
                     roles.CreateRole("user", true).GetAwaiter().GetResult();
+
+                    var users = DependencyResolver.Current.GetService<IUserService>();
+
+                    if (users != null && !users.UserExists("administrator").GetAwaiter().GetResult())
+                        users.CreateUser("Administrator", string.Empty, "admin", "root@localhost", "administrator");
                 }
-
-                var users = DependencyResolver.Current.GetService<IUserService>();
-
-                if (users != null && !users.UserExists("administrator").GetAwaiter().GetResult())
-                    users.CreateUser("Administrator", string.Empty, "admin", "root@localhost", "administrator");
 
                 var groups = DependencyResolver.Current.GetService<IGroupService>();
 
                 if (groups != null)
+                {
                     groups.CreateGroup("default", true).GetAwaiter().GetResult();
 
-                var pages = DependencyResolver.Current.GetService<IPageService>();
+                    var pages = DependencyResolver.Current.GetService<IPageService>();
 
-                if (groups != null)
-                    pages.CreatePage(string.Empty, "default").GetAwaiter().GetResult();
+                    if (pages != null)
+                    {
+                        pages.CreatePage(string.Empty, "default").GetAwaiter().GetResult();
+
+                        pages.UpdatePage("/", "Markdown", "default", File.ReadAllText(Path.Combine(context.Server.MapPath("/"), "markdown.txt"))).GetAwaiter().GetResult();
+                    }
+
+                    var images = DependencyResolver.Current.GetService<IImageService>();
+
+                    if (images != null)
+                        images.CreateImage("markdown.png", "default", File.ReadAllBytes(Path.Combine(context.Server.MapPath("/"), "images/markdown.png")));
+                }
 
                 var policies = DependencyResolver.Current.GetService<IPolicyService>();
 
                 if (policies != null)
-                {
                     policies.CreatePolicy("administrator", "default", true).GetAwaiter().GetResult();
-                    policies.CreatePolicy("user", "default", true).GetAwaiter().GetResult();
-                }
             }
         }
     }

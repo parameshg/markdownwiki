@@ -5,41 +5,47 @@
         <td width="100%">
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="#tab-page-view" data-toggle="tab">View</a></li>
-                <li role="presentation"><a href="#tab-page-edit" data-toggle="tab">Edit</a></li>
+                @if (Model.Authorized)
+                {
+                    <li role="presentation"><a href="#tab-page-edit" data-toggle="tab">Edit</a></li>
+                }
             </ul>
         </td>
         <td width="100px">&nbsp;</td>
         <td width="100px">
-            <a href="#" class="btn btn-default" data-toggle="modal" data-target="#create-page">
-                <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-            </a>
-            <div class="modal" id="create-page" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        @using (Html.BeginForm("Create", "Pages", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <div class="modal-header">
-                                <b class="modal-title">New Markdown Page</b>
-                            </div>
-                            <div class="modal-body">
-                                <input type="text" id="name" name="name" class="form-control" placeholder="Page Title" />
-                                <br />
-                                <select id="group" name="group" class="form-control">
-                                    @foreach (var group in Model.Groups)
-                                    {
-                                        <option>@group.Name</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Create</button>
-                            </div>
-                        }
+            @if (Model.Authorized)
+            {
+                <a href="#" class="btn btn-default" data-toggle="modal" data-target="#create-page">
+                    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+                </a>
+                <div class="modal" id="create-page" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("Create", "Pages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="modal-header">
+                                    <b class="modal-title">New Markdown Page</b>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Page Title" />
+                                    <br />
+                                    <select id="group" name="group" class="form-control">
+                                        @foreach (var group in Model.Groups)
+                                        {
+                                            <option>@group.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </td>
     </tr>
 </table>
@@ -55,40 +61,47 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane" id="tab-page-edit">
-        @using (Html.BeginForm("Update", "Pages", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
-            <input type="hidden" id="url" name="url" class="form-control" placeholder="Url" value="@Model.Url" />
-            <input type="text" id="name" name="name" class="form-control" placeholder="Title" value="@Model.Name" />
-            <br />
-            <textarea id="body" name="body" class="form-control" placeholder="Markdown" rows="20">@Model.Markdown</textarea>
-            <br />
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-page"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;Delete</button>
-            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;Save Changes</button>
-        }
-    </div>
+    @if (Model.Authorized)
+    {
+        <div class="tab-pane" id="tab-page-edit">
+            @using (Html.BeginForm("Update", "Pages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="url" name="url" value="@Model.Url" />
+                <input type="hidden" id="group" name="group" value="@Model.Group" />
+                <input type="text" id="name" name="name" class="form-control" placeholder="Title" value="@Model.Name" />
+                <br />
+                <textarea id="body" name="body" class="form-control" placeholder="Markdown" rows="20">@Model.Markdown</textarea>
+                <br />
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-page"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;Delete</button>
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;Save Changes</button>
+            }
+        </div>
+    }
 </div>
 <br />
 <br />
-<div class="modal" id="delete-page" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        @using (Html.BeginForm("Delete", "Pages", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <div class="modal-content">
-                <div class="modal-header">
-                    <b class="modal-title">Delete Markdown Page</b>
+@if (Model.Authorized)
+{
+    <div class="modal" id="delete-page" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            @using (Html.BeginForm("Delete", "Pages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <b class="modal-title">Delete Markdown Page</b>
+                    </div>
+                    <div class="modal-body">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" id="url" name="url" class="form-control" placeholder="Url" value="@Model.Url" />
+                        You are about to permanently delete this page. This action cannot be undone. Are you sure you want to do this?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;Delete Permanently</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" id="url" name="url" class="form-control" placeholder="Url" value="@Model.Url" />
-                    You are about to permanently delete this page. This action cannot be undone. Are you sure you want to do this?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;Delete Permanently</button>
-                </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
+}

@@ -14,16 +14,19 @@ namespace MDW.Services
 
         private IPageRepository Pages { get; set; }
 
+        private IImageRepository Images { get; set; }
+
         private IPolicyRepository Policies { get; set; }
 
-        public PolicyService(IUserRepository users, IPageRepository pages, IPolicyRepository policies)
+        public PolicyService(IUserRepository users, IPageRepository pages, IImageRepository images, IPolicyRepository policies)
         {
             Users = users;
             Pages = pages;
+            Images = images;
             Policies = policies;
         }
 
-        public async Task<bool> Evaluate(string username, string url)
+        public async Task<bool> EvaluatePage(string username, string url)
         {
             var result = false;
 
@@ -42,6 +45,33 @@ namespace MDW.Services
                 var flag = true;
 
                 foreach(var policy in policies.Where(i => i.Role.Equals(role) && i.Group.Equals(group)).ToList())
+                    flag = flag && policy.Effect;
+
+                result = flag;
+            }
+
+            return result;
+        }
+
+        public async Task<bool> EvaluateImage(string username, string filename)
+        {
+            var result = false;
+
+            var user = await Users.GetUser(username);
+
+            var role = user != null ? user.Role : string.Empty;
+
+            var image = await Images.GetImage(filename);
+
+            var group = image != null ? image.Group : string.Empty;
+
+            if (!string.IsNullOrEmpty(role) && !string.IsNullOrEmpty(group))
+            {
+                var policies = await Policies.GetPolicies();
+
+                var flag = true;
+
+                foreach (var policy in policies.Where(i => i.Role.Equals(role) && i.Group.Equals(group)).ToList())
                     flag = flag && policy.Effect;
 
                 result = flag;

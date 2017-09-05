@@ -1,5 +1,6 @@
 ﻿using MDW.Filters;
 using MDW.Models;
+using MDW.Security;
 using MDW.Services.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -8,6 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace MDW.Controllers
 {
@@ -69,16 +71,14 @@ namespace MDW.Controllers
                     Response.SetCookie(new HttpCookie("Email", user.Email?.ToString()));
                     Response.SetCookie(new HttpCookie("Theme", user?.Theme?.ToString()));
                     Response.SetCookie(new HttpCookie("Gravatar", user?.Gravatar?.ToString()));
-                    Response.SetCookie(new HttpCookie("Role", user?.Role?.ToString()));
 
                     Session.Add("Username", user.Username?.ToString());
                     Session.Add("FirstName", user.FirstName?.ToString());
                     Session.Add("LastName", user.LastName?.ToString());
-                    Session.Add("Name", user.Name?.ToString());
+                    Session.Add("Name", user.Name   ?.ToString());
                     Session.Add("Email", user.Email?.ToString());
                     Session.Add("Theme", user?.Theme?.ToString());
                     Session.Add("Gravatar", user?.Gravatar?.ToString());
-                    Session.Add("Role", user?.Role?.ToString());
 
                     if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
                         result = Redirect(Request.QueryString["ReturnUrl"]);

@@ -6,7 +6,9 @@ namespace MDW.Services.Interfaces
 {
     public interface IPolicyService
     {
-        Task<bool> Evaluate(string username, string url);
+        Task<bool> EvaluatePage(string username, string url);
+
+        Task<bool> EvaluateImage(string username, string filename);
 
         Task<List<Policy>> GetPolicies();
 

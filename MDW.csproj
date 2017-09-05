@@ -158,8 +158,10 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Entity\Image.cs" />
     <Compile Include="Entity\Page.cs" />
     <Compile Include="Entity\Group.cs" />
     <Compile Include="Entity\Policy.cs" />
@@ -171,12 +173,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Policy.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ImageRepository.cs" />
+    <Compile Include="Repository\Interfaces\IImageRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
     <Compile Include="Repository\Interfaces\IPolicyRepository.cs" />
     <Compile Include="Repository\Interfaces\IRepository.cs" />
@@ -193,6 +198,8 @@
     <Compile Include="Security\WikiUser.cs" />
     <Compile Include="Security\WikiUserManager.cs" />
     <Compile Include="Security\WikiUserStore.cs" />
+    <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\Interfaces\IImageService.cs" />
     <Compile Include="Services\Interfaces\IPolicyService.cs" />
     <Compile Include="Services\Interfaces\IGroupService.cs" />
     <Compile Include="Services\Interfaces\IRoleService.cs" />
@@ -227,6 +234,10 @@
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\site.css" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\markdown.png" />
+    <Content Include="Images\mw.jpg" />
+    <Content Include="markdown.txt" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -242,9 +253,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="LICENSE" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="README.md" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -22,10 +22,10 @@
                         <td>@page.Url</td>
                         <td>@page.Group</td>
                         <td width="10px" class="text-center">
-                            @using (Html.BeginForm("DeleteRole", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @using (Html.BeginForm("DeletePage", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
                             {
                                 @Html.AntiForgeryToken()
-                                <input type="hidden" id="name" name="name" value="@page.Name" />
+                                <input type="hidden" id="url" name="url" value="@page.Url" />
                                 <button type="submit" class="btn btn-xs btn-default">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>

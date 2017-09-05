@@ -1,8 +1,9 @@
-﻿using MDW.Filters;
-using MDW.Models;
+﻿using MDW.Models;
 using MDW.Services.Interfaces;
-using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
+using MDW.Filters;
 
 namespace MDW.Controllers
 {
@@ -44,7 +45,7 @@ namespace MDW.Controllers
             {
                 var model = new UserListModel();
 
-                (await Users.GetUsers()).ForEach(i =>
+                (await Users.GetUsers()).ForEach(i => 
                 {
                     model.Users.Add(new UserModel()
                     {
@@ -232,6 +233,19 @@ namespace MDW.Controllers
             ActionResult result = null;
 
             await Groups.DeleteGroup(model.Name);
+
+            result = Redirect(Request.UrlReferrer.ToString());
+
+            return result;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeletePage([Bind(Include = "url")] DeletePageModel model)
+        {
+            ActionResult result = null;
+
+            await Pages.DeletePageByUrl(model.Url);
 
             result = Redirect(Request.UrlReferrer.ToString());
 

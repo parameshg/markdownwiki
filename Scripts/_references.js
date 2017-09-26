@@ -1,5 +1,5 @@
-﻿/// <reference path="modernizr-2.8.3.js" />
-/// <reference path="jquery-3.1.1.js" />
+﻿/// <reference path="jquery-3.2.1.js" />
+/// <reference path="modernizr-2.8.3.js" />
 /// <autosync enabled="true" />
 /// <reference path="angular-ui/ui-bootstrap.min.js" />
 /// <reference path="angular-ui/ui-bootstrap-tpls.min.js" />

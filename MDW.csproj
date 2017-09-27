@@ -293,6 +293,7 @@
     <Content Include="Views\Admin\Roles.cshtml" />
     <Content Include="Views\Admin\Groups.cshtml" />
     <Content Include="Views\Admin\Authorization.cshtml" />
+    <Content Include="Views\Media\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -38,7 +38,7 @@ namespace MDW
 
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/scripts")
+            bundles.Add(new ScriptBundle("~/js")
                 .Include("~/scripts/jquery-{version}.js",
                          "~/scripts/jquery.validate*",
                          "~/scripts/modernizr-*",

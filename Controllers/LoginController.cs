@@ -26,15 +26,18 @@ namespace MDW.Controllers
         {
             ActionResult result = null;
 
-            if (Session["username"] != null)
+            await Task.Run(() =>
             {
-                if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
-                    result = Redirect(Request.QueryString["ReturnUrl"]);
+                if (Session["username"] != null)
+                {
+                    if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+                        result = Redirect(Request.QueryString["ReturnUrl"]);
+                    else
+                        result = RedirectToAction("Index", "Pages");
+                }
                 else
-                    result = RedirectToAction("Index", "Pages");
-            }
-            else
-                result = View(new Login());
+                    result = View(new Login());
+            });
 
             return result;
         }

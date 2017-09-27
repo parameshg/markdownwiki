@@ -82,7 +82,7 @@ namespace MDW.Controllers
 
             url = url.Replace("/", string.Empty);
 
-            result = Redirect($"{Request.Url.Scheme}://{Request.Url.Host}:{Request.Url.Port}?{url}");
+            result = Redirect(string.Format("{0}://{1}:{2}?{3}", Request.Url.Scheme, Request.Url.Host, Request.Url.Port, url));
 
             return result;
         }

@@ -99,7 +99,7 @@ namespace MDW.Controllers
                         Group = i.Group,
                         Name = i.Name,
                         Url = i.Url,
-                        AbsoluteUrl = $"{Request.Url.Scheme}://{Request.Url.Host}:{Request.Url.Port}{i.Url.Replace("/", "/?")}"
+                        AbsoluteUrl = string.Format("{0}://{1}:{2}{3}", Request.Url.Scheme, Request.Url.Host, Request.Url.Port, i.Url.Replace("/", "/?"))
                     });
                 });
 
@@ -111,13 +111,13 @@ namespace MDW.Controllers
                 var model = new GroupListModel();
 
                 (await Groups.GetGroups()).ForEach(i =>
-                {
-                    model.Groups.Add(new GroupModel()
-                    {
-                        Name = i.Name,
-                        Builtin = i.Builtin
-                    });
-                });
+                        {
+                            model.Groups.Add(new GroupModel()
+                            {
+                                Name = i.Name,
+                                Builtin = i.Builtin
+                            });
+                        });
 
                 result = View("Groups", model);
             }
@@ -127,13 +127,13 @@ namespace MDW.Controllers
                 var model = new PolicyListModel();
 
                 (await Roles.GetRoles()).ForEach(i =>
-                {
-                    model.Roles.Add(new RoleModel()
-                    {
-                        Name = i.Name,
-                        Builtin = i.Builtin
-                    });
-                });
+                            {
+                                model.Roles.Add(new RoleModel()
+                                {
+                                    Name = i.Name,
+                                    Builtin = i.Builtin
+                                });
+                            });
 
                 (await Groups.GetGroups()).ForEach(i =>
                 {

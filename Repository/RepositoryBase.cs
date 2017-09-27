@@ -12,7 +12,7 @@ namespace MDW.Repository
 
         public RepositoryBase()
         {
-            Database = new LiteDatabase($"{Filename}");
+            Database = new LiteDatabase(Filename);
         }
     }
 }

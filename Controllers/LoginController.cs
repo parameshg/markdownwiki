@@ -65,21 +65,21 @@ namespace MDW.Controllers
                         ExpiresUtc = DateTime.UtcNow.AddDays(7)
                     }, identity);
 
-                    Response.SetCookie(new HttpCookie("Username", user.Username?.ToString()));
-                    Response.SetCookie(new HttpCookie("FirstName", user.FirstName?.ToString()));
-                    Response.SetCookie(new HttpCookie("LastName", user.LastName?.ToString()));
-                    Response.SetCookie(new HttpCookie("Name", user.Name?.ToString()));
-                    Response.SetCookie(new HttpCookie("Email", user.Email?.ToString()));
-                    Response.SetCookie(new HttpCookie("Theme", user?.Theme?.ToString()));
-                    Response.SetCookie(new HttpCookie("Gravatar", user?.Gravatar?.ToString()));
+                    Response.SetCookie(new HttpCookie("Username", user.Username));
+                    Response.SetCookie(new HttpCookie("FirstName", user.FirstName));
+                    Response.SetCookie(new HttpCookie("LastName", user.LastName));
+                    Response.SetCookie(new HttpCookie("Name", user.Name));
+                    Response.SetCookie(new HttpCookie("Email", user.Email));
+                    Response.SetCookie(new HttpCookie("Theme", user.Theme));
+                    Response.SetCookie(new HttpCookie("Gravatar", user.Gravatar));
 
-                    Session.Add("Username", user.Username?.ToString());
-                    Session.Add("FirstName", user.FirstName?.ToString());
-                    Session.Add("LastName", user.LastName?.ToString());
-                    Session.Add("Name", user.Name?.ToString());
-                    Session.Add("Email", user.Email?.ToString());
-                    Session.Add("Theme", user?.Theme?.ToString());
-                    Session.Add("Gravatar", user?.Gravatar?.ToString());
+                    Session.Add("Username", user.Username);
+                    Session.Add("FirstName", user.FirstName);
+                    Session.Add("LastName", user.LastName);
+                    Session.Add("Name", user.Name);
+                    Session.Add("Email", user.Email);
+                    Session.Add("Theme", user.Theme);
+                    Session.Add("Gravatar", user.Gravatar);
 
                     if (!string.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
                         result = Redirect(Request.QueryString["ReturnUrl"]);

@@ -4,7 +4,7 @@
     {
         public bool Enabled { get; set; }
 
-        public string Name { get { return $"{FirstName} {LastName}"; } }
+        public string Name { get { return string.Format("{0} {1}", FirstName, LastName); } }
 
         public string FirstName { get; set; }
 

@@ -39,8 +39,8 @@ namespace MDW.Controllers
                 model.Theme = user.Theme;
                 model.Gravatar = user.Gravatar;
 
-                Response.Cookies["Theme"].Value = user?.Theme;
-                Session["Theme"] = user?.Theme;
+                Response.Cookies["Theme"].Value = user.Theme;
+                Session["Theme"] = user.Theme;
             }
 
             result = View(model);
